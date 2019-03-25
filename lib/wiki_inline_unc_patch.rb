@@ -12,7 +12,7 @@ module WikiInlineUncHelper
 
   def auto_unc_link!(text)
     # assumes server name is ascii, but paths may contain non-ascii words
-    text.gsub!(/(^|[\s>:,.])(\\\\[\w\-.]+\\[[:alnum:][:punct:]\\]+)/) do
+    text.gsub!(/(^|[\s>:,.])(\\\\[[:alnum:]\-]+(?:\.[[:alnum:]\-]+)*(?:\\(?:\s?[^\s\\\/\:\*\?\"\<\>\|])+)*\\?)/) do
       leading, unc = $1, $2
       url = "file:///#{unc.tr('\\', '/')}"
       "#{leading}#{auto_unc_link_to(unc, url)}"
